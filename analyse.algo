@@ -1,0 +1,134 @@
+ALGORITHME : jeu_de_l_oie
+//BUT : jeu de l'oie fonctionnel ;
+//ENTREE : lancer random jet de dé ;
+//SORTIE : un entier qui équivaut à la position du joueur ;
+
+
+CONST 
+//Ce qui ne varie pas lors d'une partie
+
+	DEPART <- 0 : ENTIER		//Correspond au minimu du plateau de jeu
+	ARRIVEE <- 66 : ENTIER 		//Correspond au maximum du plateau de jeu
+
+	VALMIN <- 2 : ENTIER		//valeur minimum du jet des deux dés
+	VALMAX <- 12 : ENTIER		//valeur maximum du jet des deux dés
+
+	MULTIPLE <- 9 : ENTIER		//Correspond à la valeur des cases doublant la valeur des dés
+	EXECPTION <- 63 : ENTIER	//Correspond à la case qui n'aura pas la valeur des dés doublés
+	MORT <- 58 : ENTIER			//Correspond à la case tête de mort quifait un etour au départ
+
+
+
+	FONCTION RandomD(jetD : ENTIER)
+
+		DEBUT
+
+			jetD <-(random MOD (VALMAX-VALMIN+)+VALMIN)
+
+			ECRIRE jetD
+
+			RandomD <- jetD
+		FIN
+
+//
+//
+
+	FONCTION plc_db_ou_s(place : ENTIER, jetD : ENTIER)
+	//Savoir si placement simple ou double
+
+		DEBUT
+			place <- place+jetD
+			//Changement de position du joueur
+			//addition du rendu des dés avec la place actuelle
+
+			SI ((place MOD MULTIPLE)=0) ET (place <> EXEPTION) ET (place > EXEPTION) ALORS
+
+				place <- place+jetD
+			FINSI
+
+			plc_db_ou_s <- place
+		FIN
+//
+//
+	FONCTION sup_ARRV(place : ENTIER)
+	//Savoir si le joueur doit reculer ou non
+
+	var recul : ENTIER
+
+	DEBUT
+		SI place > ARRIVEE ALORS
+
+			recul <- place-66
+			place <- ARRIVEE-recul
+
+		FINSI
+
+		sup_ARRV <- place
+	FIN
+//
+//
+	FONCTION Tt_Mrt (place : ENTIER) //Condition de la case 58
+
+		DEBUT
+			SI place = 58 ALORS
+				
+				place <- DEPART
+				ECRIRE ("Retour a la case depart")
+
+			FINSI
+
+			Tt_Mrt <- place
+		FIN
+
+
+
+VAR
+//Ce qui variera lors d'une partie
+	
+	pos : ENTIER 	//Correspond à la position du joueur
+	jetD : ENTIER  	// Correspond au jet des dés
+
+DEBUT
+
+	//Initialisation
+	pos <- DEPART
+	jetD <- DEPART
+		
+
+	//Début de la boucle de jeu
+
+	
+
+		//Jet des dés
+		ECRIRE "Lancez les dés :"
+
+
+			TANTQUE (((jetD < VALMIN) OU (jetD > VALMAX)) ET (pos <> ARRIVEE) ET (place) FAIRE	
+			//Limite au valeur max et min
+			//Vérifie que pose n'a pas atteint 66
+
+				//obtention d'un nombre aléatoire
+				RandomD(jetD)
+				ECRIRE jetD			
+
+				//Savoir si placement simple ou double
+				plc_db_ou_c(place, jetD)
+
+				//Condition si place est plus élevé que 66
+				sup_ARRV(place)
+
+				//Condition de la case 58
+				Tt_Mrt(place)	
+
+				//affichage de la place du joueur
+				ECRIRE "le joueur est sur la case "		
+
+			FINTANTQUE
+
+		ECRIRE "VICTOIRE"
+
+
+FIN
+
+
+

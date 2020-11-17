@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1605605827 source:c:\users\laboi\desktop\ludus académie\annee_2020-2021\algorithme\exercice_tp\j_d_l_oie\jeu_de_l_oie\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
